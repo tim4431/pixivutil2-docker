@@ -21,6 +21,25 @@ env:
 
 
 jobs:
+  # copied from Hamuko
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get-release-info.outputs.tag }}
+      url: ${{ steps.get-release-info.outputs.url }}
+      already_exists: ${{ steps.existing-image.outputs.exists }}
+    steps:
+      - name: Download PixivUtil2 release information
+        run: curl https://api.github.com/repos/Nandaka/PixivUtil2/releases -o releases.json
+      - name: Get latest release information
+        id: get-release-info
+        run: |
+          tag=$(jq '.[0].tag_name' releases.json | tr -d '"')
+          url=$(jq '.[0].tarball_url' releases.json | tr -d '"')
+          echo "::set-output name=tag::$tag"
+          echo "::set-output name=url::$url"
+          echo "tag=$tag" >> $GITHUB_ENV
+
   build:
 
     runs-on: ubuntu-latest
@@ -67,8 +86,17 @@ jobs:
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        # Hamuko
         with:
+          flavor: |
+            latest=true
+            prefix=
+            suffix=
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ needs.check.outputs.tag }}
+        #with:
+        #  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
