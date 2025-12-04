@@ -1,7 +1,5 @@
 # PixivUtil2-docker
-This image is based on Hamuko's [pixivutil2-docker](https://github.com/Hamuko/pixivutil2-docker), with telegram report feature added.
-
-Docker container builds of [PixivUtil2](https://github.com/tim4431/PixivUtil2), which is forked from Nandaka's [PixivUtil2](https://github.com/Nandaka/PixivUtil2/).
+This image is based on Hamuko's [pixivutil2-docker](https://github.com/Hamuko/pixivutil2-docker)
 
 ## Example usage
 
@@ -45,9 +43,4 @@ Login successful.
 My User Id: xxxxxx.
 Premium User: False.
 Processing Member Id: 9314725
-```
-
-## Telegram Report Feature
-```
-pixivutil2 -rp
 ```
