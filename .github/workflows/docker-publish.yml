@@ -90,12 +90,13 @@ jobs:
         # Hamuko
         with:
           flavor: |
-            latest=true
+            latest=false
             prefix=
             suffix=
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=${{ needs.check.outputs.tag }}
+            type=raw,value=latest
         #with:
         #  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
