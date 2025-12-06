@@ -27,8 +27,8 @@ docker run \
 # --- 2. Prepare the Notification Message ---
 if [ -f "$LOG_FILE" ]; then
     # Extract top 5 and bottom 5 lines
-    HEAD_LOG=$(head -n 5 "$LOG_FILE")
-    TAIL_LOG=$(tail -n 5 "$LOG_FILE")
+    HEAD_LOG=$(head -n 20 "$LOG_FILE")
+    TAIL_LOG=$(tail -n 20 "$LOG_FILE")
 
     # Construct message with Markdown formatting
     # Note: We use quotes around EOF to prevent variable expansion if needed,
